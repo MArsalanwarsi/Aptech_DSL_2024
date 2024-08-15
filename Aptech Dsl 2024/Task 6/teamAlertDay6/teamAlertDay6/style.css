@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background: rgb(0, 0, 0);
+    height: 612px;
+}
+
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255,1);
+    border: none;
+    height: 400px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+#inp1{
+    font-size: 20px;
+}
+#inp2{
+    font-size: 20px;
+}
+#h1{
+    text-align: center;
+    color: white;
+}
+#print{
+    text-align: center;
+}
+
+#username{
+font-size: 20px;
+}
+#password{
+    font-size: 20px;
+}

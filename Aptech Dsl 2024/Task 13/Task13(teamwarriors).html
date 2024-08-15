@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body style="background-color: rgba(197, 195, 195, 0.514);">
+    <div class="container-fluid">
+        <h1 class="text-center m-5">Name Drawing Application</h1>
+        <div class="d-flex justify-content-center align-items-center">
+            <canvas id="canvas" height="300" width="300"
+                style="border: 1px solid black; font-size: 50px; font-family: 'Courier New', Courier, monospace;"></canvas>
+        </div>
+        <div class="form-group">
+
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="form-group mt-2">
+                <input type="text" class="form-control my-3" placeholder="Your Name" id="name">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <select id="font" class="form-select">
+                        <option value="" style="font-family: sans-serif; font-weight: 700;">Select Fonts</option>
+                        <option value="Helvetica" style="font-family:  Helvetica;">Helvetica</option>
+                        <option value="monospace" style="font-family: monospace;">monospace</option>
+                        <option value="fantasy" style="font-family: fantasy;">fantasy</option>
+                        <option value="Cambria, Cochin" style="font-family: Cambria, Cochin;">Cambria Cochin</option>
+                        <option value="Segoe UI" style="font-family: 'Segoe UI';">Segoe UI</option>
+                    </select>
+                    <input type="color" id="color" class="form-control-color">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="button" class="btn btn-outline-success my-4" onclick="Drawing()">Generate</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        function Drawing() {
+            let userinput = document.getElementById("name");
+            let fontpicker = document.getElementById("font");
+            let color = document.getElementById("color");
+            let canvas = document.getElementById('canvas');
+            let canattr = canvas.getContext('2d');
+            userinput = userinput.value;
+            fontpicker = fontpicker.value;
+            color = color.value;
+            if (userinput == "") {
+                alert("Please Enter Your Name");
+                return
+            }
+            if (fontpicker == "") {
+                alert("Please Select Font");
+                return
+            }
+
+            canattr.font = "25px " + fontpicker;
+            canattr.fillStyle = color;
+            canattr.textAlign = "center";
+            canattr.clearRect(0, 0, canvas.width, canvas.height);
+            canattr.fillText(userinput, canvas.width / 2, canvas.height / 2);
+
+        }
+    </script>
+</body>
+
+</html>

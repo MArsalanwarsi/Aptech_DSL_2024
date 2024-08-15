@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid min-vh-100 p-5 bg-dark-subtle">
+        <h1 class="text-center p-5">Countdown Timer </h1>
+        <div class="d-flex justify-content-center align-items-center p-5">
+            <input type="datetime-local" class="form-control" style="max-width: 230px;" name="" id="settime">
+            <button class="btn btn-outline-dark ms-3" onclick="timerstart()">Start Timer</button>
+        </div>
+        <div id="result">
+
+        </div>
+    </div>
+
+    <script>
+
+        function timerstart() {
+            const inputtime = new Date(document.getElementById("settime").value);
+
+            if (isNaN(inputtime.getTime())) {
+                alert("Invalid date and time");
+                return;
+            }
+
+            if (inputtime < new Date()) {
+                alert("Deadline must be in the future");
+                return;
+            }
+
+            createclock();
+        }
+        function createclock() {
+            const inputtime = new Date(document.getElementById("settime").value);
+            const clock = document.createElement('div');
+            clock.className = "d-flex justify-content-center align-items-center p-5 alert alert-info";
+            setInterval(timecheck, 1000);
+
+            function timecheck() {
+                const t = gettimedata();
+                clock.innerHTML = 'Days: ' + t.days + " " + " " +
+                    'Hours: ' + t.hours + " " + " " +
+                    'Minutes: ' + t.minutes + " " + " " +
+                    'Seconds: ' + t.seconds;
+                if (t.total <= 0) {
+                    document.getElementById('result').removeChild(clock);
+                    alert("Time's up");
+                }
+            }
+            document.getElementById('result').innerHTML = "";
+            document.getElementById('result').appendChild(clock);
+        }
+
+        function gettimedata() {
+            const inputtime = new Date(document.getElementById("settime").value)
+            const total = Date.parse(inputtime) - Date.parse(new Date());
+            const seconds = Math.floor((total / 1000) % 60);
+            const minutes = Math.floor((total / 1000 / 60) % 60);
+            const hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(total / (1000 * 60 * 60 * 24));
+
+            return { total, days, hours, minutes, seconds };
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // Function to check if a number is prime
+        function isPrime(num) {
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Function to generate the first N prime numbers
+        function generatePrimes(n) {
+            let primes = [];
+            let count = 0;
+            let num = 2;
+
+            while (count < n) {
+                if (isPrime(num)) {
+                    primes.push(num);
+                    count++;
+                }
+                num++;
+            }
+
+            return primes;
+        }
+
+        // Get user input
+        const n = parseInt(prompt("Enter a positive integer: "));
+
+        // Validate user input
+        if (n > 0) {
+            const primes = generatePrimes(n);
+            document.write(`The first ${n} prime numbers are: ${primes.join(", ")}`);
+        } else {
+            document.write("Please enter a valid positive integer.");
+        }
+    </script>
+</body>
+</html>

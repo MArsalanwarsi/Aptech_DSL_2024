@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Verdana, sans-serif;
+        }
+
+        .login_form {
+            border: 1px solid #888;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 50px;
+            border-radius: 3px;
+        }
+
+        div {
+            border-radius: 3px;
+            margin: auto;
+        }
+
+        label {
+            margin-right: 15px;
+        }
+
+        input[type=text],
+        input[type=password] {
+            width: 75%;
+            padding: 12px 20px;
+            margin: 8px 0;
+        }
+
+        button {
+            margin-top: 10px;
+            cursor: pointer;
+            background: #80aaff;
+            color: #fff;
+            font-size: 0.7em;
+            border-radius: 3px;
+            display: block;
+            padding: 15px 45px;
+            border: none;
+            transition: background .2s linear;
+        }
+
+        button:hover {
+            background: #4d88ff;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login_form">
+        <label for="username">Username</label>
+        <input type="text" id="username">
+        <br>
+        <label for="password">Password</label>
+        <input type="password" id="password">
+        <!--       <button onclick="pwdHash()">Register</button> -->
+        <button id="login_btn" onclick="loginUser()">Submit</button>
+        <p id="output"></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    <script>
+        var users = [
+            {
+                username: "Aptech",
+                password: "aptech123"
+            },
+            {
+                username: "Dmitry",
+                password: "lzhedmitry",
+            }
+        ];
+
+        /* LOGIN FUNCTION */
+        function loginUser() {
+            let username_form = document.getElementById("username").value
+            let password_form = document.getElementById("password").value
+
+            if (username_form == "" && password_form == "") {
+                return document.getElementById("output").innerHTML = "Enter Email & password"
+            } else if (username_form == "") {
+                return document.getElementById("output").innerHTML = "Enter Email"
+            } else if (password_form == "") {
+                return document.getElementById("output").innerHTML = "Enter password"
+            }
+
+            for (let i = 0; i < users.length; i++) {
+                if (username_form == users[i]["username"] && pwdHash(password_form) == pwdHash(users[i]["password"])) {
+                    return document.getElementById("output").innerHTML = "You have successfully logged in, although it is not visible";
+                }
+            }
+            return document.getElementById("output").innerHTML = "The username or password you entered is incorrect";
+        }
+
+        /* HASHING PASSWORD FUNCTION */
+        function pwdHash(pwd) {
+            var hashObj = sha256.create();
+            console.log(hashObj);
+            hashObj.update(pwd);
+            // hashObj.update(String.fromCharCode(1707465638, 313233));
+            var hash = hashObj.hex();
+            console.log(hash);
+            return pwd = hash;
+
+        }
+
+    </script>
+</body>
+
+</html>

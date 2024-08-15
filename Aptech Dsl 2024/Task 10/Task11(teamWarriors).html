@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: white;
+        }
+
+        .container {
+            background-color: white;
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rainbow1,
+        .rainbow2,
+        .rainbow3,
+        .rainbow4,
+        .rainbow5,
+        .rainbow6,
+        .rainbow7,
+        .rainbow8 {
+            position: relative;
+            border-radius: 275px 275px 0 0;
+        }
+
+        .rainbow2,
+        .rainbow3,
+        .rainbow4,
+        .rainbow5,
+        .rainbow6,
+        .rainbow7,
+        .rainbow8 {
+            top: 20px;
+            left: 20px;
+        }
+
+        .rainbow1 {
+            background-color: red;
+            height: 200px;
+            width: 400px;
+        }
+
+        .rainbow2 {
+            background-color: orange;
+            height: 180px;
+            width: 360px;
+        }
+
+        .rainbow3 {
+            background-color: yellow;
+            height: 160px;
+            width: 320px;
+        }
+
+        .rainbow4 {
+            background-color: green;
+            height: 140px;
+            width: 280px;
+        }
+
+        .rainbow5 {
+            background-color: blue;
+            height: 120px;
+            width: 240px;
+        }
+
+        .rainbow6 {
+            background-color: indigo;
+            height: 100px;
+            width: 200px;
+        }
+
+        .rainbow7 {
+            background-color: violet;
+            height: 80px;
+            width: 160px;
+        }
+
+        .rainbow8 {
+            background-color: white;
+            height: 60px;
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="rainbow1">
+            <div class="rainbow2">
+                <div class="rainbow3">
+                    <div class="rainbow4">
+                        <div class="rainbow5">
+                            <div class="rainbow6">
+                                <div class="rainbow7">
+                                    <div class="rainbow8">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colors" >
+            <input type="color" class=" form-control-color" name="" id="pick1" oninput="changeColor1()">
+            <input type="color" class=" form-control-color" name="" id="pick2">
+            <input type="color" class=" form-control-color" name="" id="pick3">
+            <input type="color" class=" form-control-color" name="" id="pick4">
+            <input type="color" class=" form-control-color" name="" id="pick5">
+            <input type="color" class=" form-control-color" name="" id="pick6">
+            <input type="color" class=" form-control-color" name="" id="pick7">
+        </div>
+        
+    </div>
+        <script>
+let pick1 = document.getElementById('pick1');
+let pick2 = document.getElementById('pick2');
+let pick3 = document.getElementById('pick3');
+let pick4 = document.getElementById('pick4');
+let pick5 = document.getElementById('pick5');
+let pick6 = document.getElementById('pick6');
+let pick7 = document.getElementById('pick7');
+
+
+var rainbow1 = document.querySelector('.rainbow1');
+var rainbow2 = document.querySelector('.rainbow2');
+var rainbow3 = document.querySelector('.rainbow3');
+var rainbow4 = document.querySelector('.rainbow4');
+var rainbow5 = document.querySelector('.rainbow5');
+var rainbow6 = document.querySelector('.rainbow6');
+var rainbow7 = document.querySelector('.rainbow7');
+
+
+function changeColor1() {
+    rainbow1.style.backgroundColor=pick1.value;
+}
+        </script>

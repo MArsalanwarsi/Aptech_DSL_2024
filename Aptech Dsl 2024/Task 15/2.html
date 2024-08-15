@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagonal Circles</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <br>
+    <label for="circleCount">Number of circles:</label>
+    <input type="number" id="circleCount" min="5" max="100" value="5">
+    <br>
+    <label for="circleColors">Circle colors (comma-separated):</label>
+    <input type="text" id="circleColors" value="red,green,blue,yellow,pink">
+    <br>
+    <button onclick="drawDiagonalCircles()">Draw circles</button>
+    <script>
+        function drawDiagonalCircles() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                const circleCount = parseInt(document.getElementById('circleCount').value);
+                const circleColors = document.getElementById('circleColors').value.split(',');
+
+                // Calculate the starting angle, end angle, and angle between circles
+                const radius = canvas.width / 2;
+                const angle = (2 * Math.PI) / circleCount;
+
+                // Clear the canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw circles
+                for (let i = 0; i < circleCount; i++) {
+                    ctx.beginPath();
+                    const x = radius + radius * Math.cos(i * angle);
+                    const y = radius + radius * Math.sin(i * angle);
+                    ctx.arc(x, y, 20, 0, 2 * Math.PI);
+                    ctx.fillStyle = circleColors[i].trim();
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+    </script>
+</body>
+
+</html>

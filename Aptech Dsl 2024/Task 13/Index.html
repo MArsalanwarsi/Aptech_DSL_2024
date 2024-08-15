@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Text Example</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="200"></canvas>
+    <script>
+        function Drawing(){
+            let userinput=document.getElementById("name").value;
+            let fontpicker=document.getElementById("font").value;
+            let color=document.getElementById("color").value;
+            let canvas = document.getElementById('canvas').getContext('2d');
+            canvas.font = '36px'+fontpicker; //set the size of text
+            canvas.fillStyle = 'black';
+            canvas.fillText('Hello, World!', 50, 100);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid p-5 bg-light text-dark">
+        <div class="row">
+            <div class="col-12">
+                <h1>Word Frequency Counter</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    Check how many times each word appears in a sentence or paragraph. The program will count the
+                    frequency of each word.Enter a word or phrase to count the frequency of that word.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="form-group">
+                        <label for="sentence" class="form-label">Enter a sentence</label>
+                        <input type="text" class="form-control my-3" id="sentence" placeholder="Enter a sentence">
+                    </div>
+                    <button type="button" class="btn btn-outline-primary my-4"
+                        onclick="wordrepeatcheack()">Check</button>
+                </form>
+            </div>
+        </div>
+        <div class="row result" id="result"></div>
+    </div>
+    </div>
+
+    <script>
+        function wordrepeatcheack() {
+            let sentence = document.getElementById("sentence").value;
+            let result = document.getElementById("result");
+
+            // remove symbol
+            const symbolsremove = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()""]/gi, "");
+            console.log(symbolsremove);
+
+            // lowercase all letters
+            const lowercase = symbolsremove.toLowerCase();
+            console.log(lowercase);
+
+            // Split into words array
+            const words = lowercase.split(" ");
+            console.log(words);
+
+
+            //emoty object to count words
+            const wordcounter = {};
+
+
+            // check every word if its already in object if not add it if yes increment by 1
+            for (const word of words) {
+                if (wordcounter.hasOwnProperty(word)) {
+                    wordcounter[word]++;
+
+                } else {
+                    wordcounter[word] = 1;
+
+                }
+            }
+
+            // sort all words in object by count 
+            const sortedwordcounter = Object.entries(wordcounter).sort();
+
+            // Print all words with numbers
+            if (result.innerHTML != "") {
+
+                result.innerHTML = "";
+            } else {
+                for (const [word, count] of sortedwordcounter) {
+                    result.innerHTML += "<div class='alert alert-success'>" + word + ":" + count + "</div>"
+
+                }
+
+            }
+        }
+
+
+    </script>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center m-5">Recipe Book</h1>
+        <div class="mb-3">
+           <h1>Add New Recipe</h1>
+            <input type="text" class="form-control my-3" id="name" placeholder="Enter Recipe Name">
+            <textarea id="ingredients" rows="3" class="form-control my-3" placeholder="Enter Ingredients"></textarea>
+            <textarea class="form-control my-3" id="instructions" rows="3" placeholder="Enter Instructions"  ></textarea>
+            <button type="button" id="save" class="btn btn-outline-success my-4">Save</button>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="text-center m-5">All Recipes</h1>
+        <div class="d-flex justify-content-center align-items-center">
+
+            <button type="button" class="btn btn-outline-success mb-3" onclick="shownotes()">Get Notes</button>
+        </div>
+
+
+        <div id="notes-list"></div>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        let notes = [];
+        let title=[]
+        let ingredients=[];
+        let instructions=[]
+
+        function addNote(note) {
+            notes.push(note);
+            saveNotes();
+            displayNotes();
+        }
+
+        function saveNotes() {
+            localStorage.setItem("notes", JSON.stringify(notes));
+        }
+
+        function getNotes() {
+            const savedNotes = localStorage.getItem("notes");
+            if (savedNotes) {
+                notes = JSON.parse(savedNotes);
+            }
+        }
+
+        function displayNotes() {
+
+            const notesList = document.querySelector("#notes-list");
+            notesList.innerHTML = "";
+            notes.forEach(celement)
+            function celement(note, index) {
+                const notediv = document.createElement("div");
+                notediv.style = "border:1px solid black; border-radius: 10px; overflow: hidden";
+                notediv.className = "position-relative p-3 m-3 w-100  "
+                const noteItem = document.createElement("li");
+                noteItem.style = "list-style-type:none;"
+                noteItem.className = "text-wrap"
+                noteItem.textContent = note;
+                noteItem.className = "my-3 "
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.className = 'btn btn-danger p-1 ms-5 position-absolute ';
+                deleteButton.style.right = "10px";
+                deleteButton.addEventListener("click", function () {
+                    deleteNote(index);
+                });
+
+                notesList.appendChild(notediv);
+                notediv.appendChild(noteItem);
+                noteItem.appendChild(deleteButton);
+            };
+        }
+
+        function shownotes() {
+            getNotes();
+            displayNotes()
+        }
+
+        function deleteNote(index) {
+            notes.splice(index, 1);
+            saveNotes();
+            displayNotes();
+        }
+
+        document.querySelector("#save").addEventListener("click", function () {
+            const note = document.querySelector("#notearea").value;
+            addNote(note);
+            const recipeName=document.querySelector('#name').value;
+            
+        })
+
+
+    </script>
+
+</body>
+
+</html>

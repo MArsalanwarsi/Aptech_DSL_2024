@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CRUD App</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>CRUD App</h1>
+    <button id="refresh">Refresh</button>
+    <div id="instances"></div>
+    <form id="add-form">
+        <input type="text" id="add-name" placeholder="Name">
+        <button type="submit">Add</button>
+    </form>
+    <form id="update-form" style="display:none;">
+        <input type="hidden" id="update-id">
+        <input type="text" id="update-name" placeholder="Name">
+        <button type="submit">Update</button>
+    </form>
+    <form id="delete-form" style="display:none;">
+        <input type="hidden" id="delete-id">
+        <button type="submit">Delete</button>
+    </form>
+    <script src="script.js"></script>
+</body>
+
+</html>

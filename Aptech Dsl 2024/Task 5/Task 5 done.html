@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center bg-black min-vh-100">
+        <div class="text-center mt-5 w-50 border-2 rounded p-5 bg-light">
+            <h1 class="text-center mb-5">Calculator</h1>
+            <input type="number" class="form-control my-3 text-center" id="sent1" />
+            <input type="number" class="form-control my-3 text-center" id="sent2" />
+            <select id="calculate" class="form-select my-3 text-center fs-5 fw-bolder">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <button onclick="digital_calculator()" class="btn btn-outline-dark mt-3">Calculate</button>
+            <div id="result" class="my-3">
+
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        function digital_calculator() {
+
+            let input1 = parseInt(document.getElementById("sent1").value);
+            let input2 = parseInt(document.getElementById("sent2").value);
+            let calculate = document.getElementById("calculate").value;
+            let result = document.getElementById("result");
+
+            if (isNaN(input1) || isNaN(input2)) {
+                result.innerHTML = '<div class="alert alert-danger">Please enter a valid number</div>'
+                return;
+            }
+
+            if (calculate === "+") {
+                var cal = input1 + input2;
+                result.innerHTML = '<div class="alert alert-success">' + "The Answer is:" + cal + '</div>'
+
+            }
+            else if (calculate === "-") {
+                var cal = input1 - input2;
+                result.innerHTML = '<div class="alert alert-success">' + "The Answer is:" + cal + '</div>'
+            }
+            else if (calculate === "*") {
+                var cal = input1 * input2;
+                result.innerHTML = '<div class="alert alert-success">' + "The Answer is:" + cal + '</div>'
+            }
+            else if (calculate === "/") {
+                var cal = input1 / input2;
+                result.innerHTML = '<div class="alert alert-success">' + "The Answer is:" + cal + '</div>'
+            }
+        }
+    </script>
+</body>
+
+</html>

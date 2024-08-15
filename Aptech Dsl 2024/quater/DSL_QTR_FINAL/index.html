@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #a {
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .b {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .b .c {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    input[type=text] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .hello {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+
+    .hello p {
+      margin: 5px 0;
+    }
+
+    .hello button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .hello button:hover {
+      background-color: #d32f2f;
+    }
+
+    .hello button.update {
+      background-color: #2196F3;
+      margin-right: 5px;
+    }
+
+    .hello button.update:hover {
+      background-color: #0d8ddb;
+    }
+  </style>
+</head>
+<body>
+  <div id="a">
+    <h1>CRUD Application</h1>
+    <button onclick="b()">Add New Team</button>
+    <div id="c"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="b">
+    <div class="c">
+      <span class="close" onclick="d()">&times;</span>
+      <h2>Create New Team</h2>
+      <form id="teamForm">
+        <label for="teamName">Team Name:</label>
+        <input type="text" id="teamName" name="teamName" required><br><br>
+        <label for="apiPrefix">API Prefix:</label>
+        <input type="text" id="apiPrefix" name="apiPrefix" pattern="[a-zA-Z0-9_-]+" title="API Prefix must contain only letters, numbers, underscores, and dashes" required><br><br>
+        <button type="submit">Create Team</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let a = []; // Array to store teams
+
+    // Function to open modal
+    function b() {
+      const c = document.getElementById("myModal");
+      c.style.display = "block";
+    }
+
+    // Function to close modal
+    function d() {
+      const c = document.getElementById("myModal");
+      c.style.display = "none";
+    }
+
+    // Function to handle form submission for adding new team
+    document.getElementById("teamForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const e = document.getElementById("teamName").value;
+      let f = document.getElementById("apiPrefix").value;
+      if (!f.startsWith("/")) { // Add "/" only if it's not already provided
+        f = "/" + f;
+      }
+      g(e, f);
+      d();
+    });
+
+    // Function to add new team
+    function g(h, i) {
+      const j = {
+        id: Date.now(), // Generate unique ID (using timestamp)
+        name: h,
+        apiPrefix: i
+      };
+      a.push(j);
+      k(); // Refresh team list
+    }
+
+    // Function to delete a team
+    function l(m) {
+      const n = confirm("Are you sure you want to delete this team?");
+      if (n) {
+        a = a.filter(o => o.id !== m);
+        k(); // Refresh team list
+      }
+    }
+
+    // Function to update team information
+    function p(m) {
+      const q = prompt("Enter the updated name for this team:");
+      let r = prompt("Enter the updated API prefix for this team:");
+      if (q !== null && r !== null) {
+        if (!r.startsWith("/")) { // Add "/" only if it's not already provided
+          r = "/" + r;
+        }
+        const s = a.findIndex(t => t.id === m);
+        if (s !== -1) {
+          a[s].name = q;
+          a[s].apiPrefix = r;
+          k(); // Refresh team list
+        }
+      }
+    }
+
+    // Function to view all teams
+    function k() {
+      const u = document.getElementById('c');
+      u.innerHTML = ''; // Clear previous content
+      a.forEach(v => {
+        const w = document.createElement('div');
+        w.classList.add('hello');
+        w.innerHTML = `<p><strong>ID:</strong> ${v.id}</p>
+                       <p><strong>Name:</strong> ${v.name}</p>
+                       <p><strong>API Prefix:</strong> ${v.apiPrefix}</p>
+                       <button class="update" onclick="p(${v.id})">Update</button>
+                       <button onclick="l(${v.id})">Delete</button>`;
+        u.appendChild(w);
+      });
+    }
+
+    // Initial call to view all teams
+    k();
+  </script>
+</body>
+</html>

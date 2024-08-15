@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center bg-dark-subtle min-vh-100">
+        <div class="text-center mt-5 border-2 rounded p-5 bg-light">
+            <h1 class="text-center mb-5">Currency Converter</h1>
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" class="form-control my-3 text-center" id="amount" />
+            <label for="fromcurrency" class="form-label">From Currency:</label>
+            <select id="fromcurrency" class="form-select my-3 text-center">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="JPY">JPY</option>
+                <option value="GBP">GBP</option>
+                <option value="CAD">CAD</option>
+            </select>
+            <label for="tocurrency" class="form-label">To Currency:</label>
+            <select id="tocurrency" class="form-select my-3 text-center">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="JPY">JPY</option>
+                <option value="GBP">GBP</option>
+                <option value="CAD">CAD</option>
+            </select>
+
+            <button onclick="convert()" class="btn btn-outline-dark mt-3">Convert</button>
+            <div id="result" class="my-3">
+
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+
+        function convert() {
+            let amount = document.getElementById("amount");
+            let fromcurrency = document.getElementById("fromcurrency");
+            let tocurrency = document.getElementById("tocurrency");
+            let result = document.getElementById("result");
+
+            if (amount.value == "" || fromcurrency.value == "" || tocurrency.value == "") {
+                result.innerHTML = '<div class="alert alert-danger">Please enter all fields.</div>'
+                return;
+            }
+
+            if (fromcurrency.value == tocurrency.value) {
+                result.innerHTML = '<div class="alert alert-danger">Please select different currencies.</div>'
+                return;
+            }
+            if (amount.value <= 0) {
+                result.innerHTML = '<div class="alert alert-danger">Please enter a valid amount.</div>'
+                return;
+            }
+            //from usd
+            if (fromcurrency.value == 'USD' && tocurrency.value == 'EUR') {
+                var convertedvalue = parseFloat(amount.value) * 0.85;
+                result.innerHTML = '<div class="alert alert-success">Result: EUR: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'USD' && tocurrency.value == 'JPY') {
+                var convertedvalue = parseFloat(amount.value) * 111.20;
+                result.innerHTML = '<div class="alert alert-success">Result: JPY: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'USD' && tocurrency.value == 'GBP') {
+                var convertedvalue = parseFloat(amount.value) * 0.73;
+                result.innerHTML = '<div class="alert alert-success">Result: GBP: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'USD' && tocurrency.value == 'CAD') {
+                var convertedvalue = parseFloat(amount.value) * 1.27;
+                result.innerHTML = '<div class="alert alert-success">Result: CAD: ' + convertedvalue + '</div>'
+            } //from EUR
+            else if (fromcurrency.value == 'EUR' && tocurrency.value == 'USD') {
+                var convertedvalue = parseFloat(amount.value) * 1.18;
+                result.innerHTML = '<div class="alert alert-success">Result: USD: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'EUR' && tocurrency.value == 'JPY') {
+                var convertedvalue = parseFloat(amount.value) * 130.89;
+                result.innerHTML = '<div class="alert alert-success">Result: JPY: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'EUR' && tocurrency.value == 'GBP') {
+                var convertedvalue = parseFloat(amount.value) * 0.86;
+                result.innerHTML = '<div class="alert alert-success">Result: GBP: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'EUR' && tocurrency.value == 'CAD') {
+                var convertedvalue = parseFloat(amount.value) * 1.48;
+                result.innerHTML = '<div class="alert alert-success">Result: CAD: ' + convertedvalue + '</div>'
+            } // from GBP
+            else if (fromcurrency.value == 'GBP' && tocurrency.value == 'USD') {
+                var convertedvalue = parseFloat(amount.value) * 1.38;
+                result.innerHTML = '<div class="alert alert-success">Result: USD: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'GBP' && tocurrency.value == 'JPY') {
+                var convertedvalue = parseFloat(amount.value) * 152.22;
+                result.innerHTML = '<div class="alert alert-success">Result: JPY: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'GBP' && tocurrency.value == 'EUR') {
+                var convertedvalue = parseFloat(amount.value) * 1.16;
+                result.innerHTML = '<div class="alert alert-success">Result: EUR: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'GBP' && tocurrency.value == 'CAD') {
+                var convertedvalue = parseFloat(amount.value) * 1.73;
+                result.innerHTML = '<div class="alert alert-success">Result: CAD: ' + convertedvalue + '</div>'
+            } // from JPY
+            else if (fromcurrency.value == 'JPY' && tocurrency.value == 'USD') {
+                var convertedvalue = parseFloat(amount.value) * 0.009;
+                result.innerHTML = '<div class="alert alert-success">Result: USD: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'JPY' && tocurrency.value == 'EUR') {
+                var convertedvalue = parseFloat(amount.value) * 0.008;
+                result.innerHTML = '<div class="alert alert-success">Result: EUR: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'JPY' && tocurrency.value == 'GBP') {
+                var convertedvalue = parseFloat(amount.value) * 0.007;
+                result.innerHTML = '<div class="alert alert-success">Result: GBP: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'JPY' && tocurrency.value == 'CAD') {
+                var convertedvalue = parseFloat(amount.value) * 0.011;
+                result.innerHTML = '<div class="alert alert-success">Result: CAD: ' + convertedvalue + '</div>'
+            } // from CAD
+            else if (fromcurrency.value == 'CAD' && tocurrency.value == 'USD') {
+                var convertedvalue = parseFloat(amount.value) * 0.79;
+                result.innerHTML = '<div class="alert alert-success">Result: USD: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'CAD' && tocurrency.value == 'JPY') {
+                var convertedvalue = parseFloat(amount.value) * 88.11;
+                result.innerHTML = '<div class="alert alert-success">Result: JPY: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'CAD' && tocurrency.value == 'GBP') {
+                var convertedvalue = parseFloat(amount.value) * 0.58;
+                result.innerHTML = '<div class="alert alert-success">Result: GBP: ' + convertedvalue + '</div>'
+            } else if (fromcurrency.value == 'CAD' && tocurrency.value == 'EUR') {
+                var convertedvalue = parseFloat(amount.value) * 0.68;
+                result.innerHTML = '<div class="alert alert-success">Result: EUR: ' + convertedvalue + '</div>'
+            }
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

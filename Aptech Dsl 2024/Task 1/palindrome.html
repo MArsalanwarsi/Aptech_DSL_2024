@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid p-5 bg-light text-dark">
+        <div class="row">
+            <div class="col-12">
+                <h1>Palindrome Checker</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    A palindrome is a word, number, phrase, or other sequence of characters which reads the same
+                    backward as
+                    forward.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="form-group">
+                        <label for="sentence" class="form-label">Enter a sentence</label>
+                        <input type="text" class="form-control my-3" id="sentence" placeholder="Enter a sentence">
+                    </div>
+                    <button type="button" class="btn btn-outline-primary my-4" onclick="reverseChecker()">Check</button>
+                </form>
+            </div>
+        </div>
+        <div class="row result" id="result">
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+
+        function reverseChecker() {
+            let sentence = document.getElementById("sentence").value;
+
+            let result = document.getElementById("result");
+            // remove symbols and spaces
+            let repalcetext = sentence.replace(/[^a-z0-9]/gi, '');
+            console.log(repalcetext)
+
+            // convert to lowercase
+            let Maintext = repalcetext.toLowerCase();
+            console.log(Maintext)
+
+            // convert into array
+            let splittext = Maintext.split('');
+            console.log(splittext)
+
+            // reverse text
+            let reversetext = splittext.reverse();
+            console.log(reversetext)
+
+            // join text and rmove array
+            let Secondtext = reversetext.join('');
+            console.log(Secondtext)
+
+            if (Maintext === Secondtext) {
+                result.innerHTML = "<div class='alert alert-success'>True</div><br><div class='alert alert-success'>Palindrome</div>"
+            }
+            else {
+                result.innerHTML = "<div class='alert alert-danger'>False</div><br><div class='alert alert-danger'>Not Palindrome</div>"
+            }
+        };
+
+    </script>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

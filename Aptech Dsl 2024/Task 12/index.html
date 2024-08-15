@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Create a checkerboard</title>
+    <style type="text/css">
+        body {
+            margin: 30px;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        .white {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="myTable" style="height: 600px; width: 600px;">
+    </table>
+    <form>
+        <input type="button" onclick="createTable()" value="Create the checkerboard">
+        <input type="color" name="" id="Odd">
+        <input type="color" name="" id="Even"  value="#FFFFFF">
+    </form>
+    <script>
+        function createTable() {
+            rn = prompt("Input number of rows", 10);
+            cn = prompt("Input number of columns", 10);
+            oddcolor=document.getElementById('Odd').value;
+            evencolor=document.getElementById('Even').value;
+
+            if (rn == null || cn == null) {
+                alert("Please input a number");
+                return;
+            } else if (isNaN(rn) || isNaN(cn)) {
+                alert("Please input a number");
+                return;
+            } else if (rn <= 0 || cn <= 0) {
+                alert("Please input a positive number");
+                return;
+            }
+
+            for (var r = 0; r < parseInt(rn); r++) {
+                var x = document.getElementById('myTable').insertRow(r);
+                for (var c = 0; c < parseInt(cn); c++) {
+                    var y = x.insertCell(c);
+                    if ((r + c) % 2 === 0) {
+                        y.style.backgroundColor = evencolor;
+                    } else {
+                        y.style.backgroundColor = oddcolor;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

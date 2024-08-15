@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid p-5 bg-light text-dark">
+        <div class="row">
+            <div class="col-12">
+                <h1>Palindrome Checker</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    A palindrome is a word, number, phrase, or other sequence of characters which reads the same
+                    backward as
+                    forward.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="form-group">
+                        <label for="sentence" class="form-label">Enter a sentence</label>
+                        <input type="text" class="form-control my-3" id="sentence" placeholder="Enter a sentence">
+                    </div>
+                    <button type="button" class="btn btn-outline-primary my-4" onclick="check()">Check</button>
+                </form>
+            </div>
+        </div>
+        <div class="row result" id="result">
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Function to check if a number is prime
+        function isPrime(num) {
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Function to generate the first N prime numbers
+        function generatePrimes(n) {
+            let primes = [];
+            let count = 0;
+            let num = 2;
+
+            while (count < n) {
+                if (isPrime(num)) {
+                    primes.push(num);
+                    count++;
+                }
+                num++;
+            }
+
+            return primes;
+        }
+function check(){
+
+    // Get user input
+    const n = document.getElementById("sentence").value;
+    let result=document.getElementById("result");
+
+    // Validate user input
+    if (n > 0) {
+        const primes = generatePrimes(n);
+         result.innerHTML ="<div class='alert alert-success'>"+ "The first"+""+ +n+  "prime numbers are:"+""+ primes.join(", ") +"</div>" ;
+       
+    } else {
+        result.innerHTML=" <div class='alert alert-danger'>Please enter a valid positive integer.</div>";
+    }
+}
+    </script>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

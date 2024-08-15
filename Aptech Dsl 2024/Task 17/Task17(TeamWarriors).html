@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+<style>
+    #questions {
+        padding: 30px;
+        margin: 10px 10px 0px 10px;
+        border: 1px solid black;
+        z-index: 100 !important;
+
+    }
+
+    .ans1,
+    .ans2,
+    .ans3 {
+        padding: 30px;
+        margin: 0px 10px 10px 10px;
+        border-top: 0px;
+        border-bottom: 1px;
+        border-left: 1px;
+        border-right: 1px;
+        border-color: black;
+        border-style: solid;
+        display: none;
+        z-index: 0;
+    }
+
+    .answer {
+        display: block;
+        animation: end 1s linear forwards;
+    }
+
+    @keyframes end {
+        0% {
+            opacity: 0.6;
+            margin-top: 0%;
+        }
+
+        25% {
+            opacity: 0.2;
+            margin-top: -2%;
+        }
+
+        50% {
+            opacity: 0;
+            margin-top: -4%;
+        }
+
+        75% {
+            opacity: 0;
+            margin-top: -6.5%;
+        }
+
+        100% {
+            opacity: 0;
+            margin-top: -6.5%;
+            display: none;
+        }
+    }
+
+    .showans {
+        display: block;
+        animation: showing 1s linear 1 forwards;
+
+    }
+
+    @keyframes showing {
+        0% {
+            margin-top: -5%;
+            opacity: 0;
+        }
+
+        25% {
+            margin-top: -4%;
+            opacity: 0.5;
+        }
+
+        50% {
+            display: block;
+            margin-top: -3%;
+            opacity: 0.5;
+        }
+
+        75% {
+            margin-top: -2%;
+            opacity: 0.5;
+        }
+
+        100% {
+            display: block;
+            margin-top: 0%;
+            opacity: 1;
+        }
+
+
+    }
+
+    /* media query to change both animations on mobile screen */
+
+    @media screen and (max-width: 600px) {
+        .showans {
+            display: block;
+            animation: showing 1s linear 1 forwards;
+        }
+
+        .answer {
+            display: block;
+            opacity: 0;
+            animation: end 1s linear forwards;
+        }
+
+        @keyframes showing {
+            0% {
+                margin-top: -25%;
+                opacity: 0;
+            }
+
+            25% {
+                margin-top: -20%;
+                opacity: 0;
+            }
+
+            50% {
+                display: block;
+                margin-top: -15%;
+                opacity: 0;
+            }
+
+            75% {
+                margin-top: -0%;
+                opacity: 0.3;
+            }
+
+            100% {
+                display: block;
+                margin-top: 0%;
+                opacity: 1;
+            }
+        }
+
+        @keyframes end {
+            0% {
+                opacity: 0.6;
+                margin-top: 0%;
+            }
+
+            25% {
+                opacity: 0.2;
+                margin-top: -15%;
+            }
+
+            50% {
+                opacity: 0;
+                margin-top: -20%;
+            }
+
+            75% {
+                opacity: 0;
+                margin-top: -25%;
+            }
+
+            100% {
+                opacity: 0;
+                margin-top: -25%;
+                display: none;
+            }
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="text-center p-5">FAQ ACCORDION</h1>
+        <div class="maindiv">
+            <div id="questions" class="q1">Q#1 What is Shipping Policy?</div>
+            <div class="ans1 ">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nostrum nulla magni
+                commodi quae placeat. Obcaecati veniam laudantium quidem corporis.</div>
+        </div>
+        <div class="maindiv ">
+            <div id="questions" class="q2">Q#2 What is Return and Exchange Policy?</div>
+            <div class="ans2 ">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nostrum nulla magni
+                commodi quae placeat. Obcaecati veniam laudantium quidem corporis.</div>
+        </div>
+        <div class="maindiv ">
+            <div id="questions" class="q3">Q#3 Payment Methods?</div>
+            <div class="ans3 ">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta nostrum nulla magni
+                commodi quae placeat. Obcaecati veniam laudantium quidem corporis.</div>
+        </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        let q1 = document.querySelector(".q1");
+        let q2 = document.querySelector(".q2");
+        let q3 = document.querySelector(".q3");
+        let answer1 = document.querySelector(".ans1");
+        let answer2 = document.querySelector(".ans2");
+        let answer3 = document.querySelector(".ans3");
+
+        q1.addEventListener("click", function () {
+            if (answer1.classList.contains("showans")) {
+                answer1.classList.remove("showans");
+                answer1.classList.add("answer");
+
+            }
+            else {
+                answer1.classList.add("showans");
+                answer1.classList.remove("answer");
+            }
+            if (answer2.classList.contains("showans")) {
+                answer2.classList.remove("showans");
+                answer2.classList.add("answer");
+            }
+            if (answer3.classList.contains("showans")) {
+                answer3.classList.remove("showans");
+                answer3.classList.add("answer");
+            }
+        });
+        q2.addEventListener("click", function () {
+            if (answer2.classList.contains("showans")) {
+                answer2.classList.remove("showans");
+                answer2.classList.add("answer");
+
+            }
+            else {
+                answer2.classList.add("showans");
+                answer2.classList.remove("answer");
+            }
+            if (answer1.classList.contains("showans")) {
+                answer1.classList.remove("showans");
+                answer1.classList.add("answer");
+            }
+            if (answer3.classList.contains("showans")) {
+                answer3.classList.remove("showans");
+                answer3.classList.add("answer");
+            }
+        });
+        q3.addEventListener("click", function () {
+            if (answer3.classList.contains("showans")) {
+                answer3.classList.remove("showans");
+                answer3.classList.add("answer");
+
+            }
+            else {
+                answer3.classList.add("showans");
+                answer3.classList.remove("answer");
+            }
+            if (answer1.classList.contains("showans")) {
+                answer1.classList.remove("showans");
+                answer1.classList.add("answer");
+            }
+            if (answer2.classList.contains("showans")) {
+                answer2.classList.remove("showans");
+                answer2.classList.add("answer");
+            }
+
+        })
+
+
+    </script>
+</body>
+
+</html>

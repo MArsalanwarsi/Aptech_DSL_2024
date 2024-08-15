@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-3 ">
+            <div class="col-md-6">
+                <h3>Add New Post</h3>
+                <form action="" class="add-post-form">
+                    <div class="form-group">
+                        <label for="title_value">Title</label>
+                        <input type="text" class="form-control" id="title_value">
+                    </div>
+                    <div class="form-group">
+                        <label for="body_value">Content</label>
+                        <textarea type="text" class="form-control" id="body_value"></textarea>
+                        <button type="submit" class="btn btn-dark mt-3" id="addPost">Add Post</button>
+                        <button type="submit" class="btn btn-dark  mt-3" id="updatePost" style="display:none">Update
+                            Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="post-list row">
+        </div>
+    </div>
+    
+
+
+    <script>
+        var postlist = document.querySelector(".post-list")
+        var addpostform = document.querySelector(".add-post-form")
+        var titlevalue = document.getElementById("title_value")
+        var bodyvalue = document.getElementById("body_value")
+        var btnsubmit = document.querySelector(".btn")
+        const url = 'jsom.json'
+        var output = ''
+
+        let renderpost = (posts) => {
+            if (posts === null || posts === undefined) {
+                return;
+            }
+            posts.forEach(posts => {
+                if (posts === null || posts === undefined) {
+                    return;
+                }
+                output += ` <div class="card mt-4  col-md-6 bg-light ">
+                <div class="card-body" data-id=${posts.id}>
+                  <h5 class="card-title">${posts.title}</h5>
+                  <p class="card-text">${posts.body}</p>
+                  <a href="#" class="card-link" id="edit_post">Edit</a>
+                  <a href="#" class="card-link" id="delete_post">Delete</a>
+                </div>
+              </div>`
+            });
+            postlist.innerHTML = output
+        }
+
+        //get .read the post
+        fetch(url)
+            .then(res => res.json())
+            .then(data => renderpost(data))
+
+        postlist.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (e === null || e === undefined) {
+                return;
+            }
+            let delbuttonispressed = e.target.id == 'delete_post';
+            let editbuttonispressed = e.target.id == 'edit_post';
+            let id = e.target.parentElement.dataset.id;
+            if (id === null || id === undefined) {
+                return;
+            }
+
+            //delete post
+            if (delbuttonispressed) {
+                fetch(`${url}/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json)
+                    .then(() => location.reload())
+            }
+            // edit post
+
+
+            if (editbuttonispressed) {
+                if (e.target.parentElement === null || e.target.parentElement === undefined) {
+                    return;
+                }
+                let parent = e.target.parentElement;
+                let titleContent = parent.querySelector(".card-title").textContent;
+                let bodyContent = parent.querySelector(".card-text").textContent;
+
+                if (titleContent === null || titleContent === undefined) {
+                    return;
+                }
+                if (bodyContent === null || bodyContent === undefined) {
+                    return;
+                }
+                titlevalue.value = titleContent
+                bodyvalue.value = bodyContent
+
+                document.querySelector("#updatePost").style.display = "block";
+                document.querySelector("#addPost").style.display = "none";
+                document.querySelector("#updatePost").addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (btnsubmit === null || btnsubmit === undefined) {
+                        return;
+                    }
+                    fetch(`${url}/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            title: titlevalue.value,
+                            body: bodyvalue.value
+                        })
+                    })
+                        .then(res => res.json)
+                        .then(() => location.reload())
+                });
+
+            }
+
+            //Update the existing Post
+            btnsubmit.addEventListener('click', () => {
+                e.preventDefault();
+                if (btnsubmit === null || btnsubmit === undefined) {
+                    return;
+                }
+                fetch(`${url}/${id}`, {
+                    method: "FETCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        title: titlevalue.value,
+                        body: bodyvalue.value
+                    })
+                })
+                    .then(res => res.json())
+                    .then(() => location.reload())
+            })
+
+        });
+
+
+        //create and insert new post
+        //method:Post
+        addpostform.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (addpostform === null || addpostform === undefined) {
+                return;
+            }
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: titlevalue.value,
+                    body: bodyvalue.value
+                })
+            })
+                .then(res => res.json)
+                .then(data => {
+                    let dataArr = []
+                    dataArr.push(data);
+                    renderpost(dataArr);
+                })
+                .then(() => location.reload())
+            //reset input field to empty
+            if (titlevalue === null || titlevalue === undefined) {
+                return;
+            }
+            if (bodyvalue === null || bodyvalue === undefined) {
+                return;
+            }
+            titlevalue.value = '';
+            bodyvalue.value = '';
+        })
+    </script>
+</body>
+
+</html>

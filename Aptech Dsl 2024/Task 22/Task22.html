@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Libre+Baskerville:wght@700&family=Oswald&family=Poppins:wght@300&family=Roboto:wght@300&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            background-color: rgb(43, 29, 29);
+            font-family: 'Roboto', sans-serif;
+            padding: 5% 5%;
+
+        }
+
+        .conatiner {
+            background: linear-gradient(135deg, #00feba, #5b548a);
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        .searchbox {
+            display: flex;
+            margin: 20px 60px;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .searchbox input {
+            border: none;
+            outline: none;
+            /* width: 450px !important; */
+            height: 30px;
+            border-radius: 10px;
+            padding-left: 10px;
+            font-size: 15px;
+
+
+        }
+
+        .searchbox i {
+            background-color: white;
+            padding: 8px 8px;
+            font-size: 17px;
+            border-radius: 20px;
+        }
+
+        .body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .body img {
+            width: 140px;
+        }
+
+        .body h2 {
+            font-size: 35px;
+            color: white;
+            font-weight: bold;
+
+        }
+
+        .body h3 {
+            font-size: 22px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .deatil {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-bottom: 50px;
+        }
+
+
+        .col {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .col i {
+            font-size: 25px;
+            color: rgb(50, 45, 45);
+
+        }
+
+
+        .col h5 {
+            font-size: 18px;
+            color: white;
+
+        }
+
+        .col p {
+            font-size: 17px;
+            color: white;
+        }
+
+
+        .deatil {
+            display: none;
+        }
+
+        .body {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="conatiner">
+        <div class="searchbox">
+            <i class="fa-solid fa-location-dot" id="getgeo"></i>
+            <input type="text" placeholder="Enter city Name" id="searchinput">
+            <i class="fa-solid fa-magnifying-glass" id="serchbox"></i>
+        </div>
+
+        <div class="body" id="body_data">
+            <img src="https://tmpfiles.nohat.cc/visualhunter-e0a90632d4.png" alt="" id="body_img">
+            <h2 id="temp">22
+            </h2>
+            <h3 id="city">New Yourk</h3>
+
+        </div>
+
+
+        <div class="deatil" id="deatil">
+            <div class="col">
+                <i class="fa-solid fa-droplet"></i>
+                <div>
+                    <h5 id="humidity">50%</h5>
+                    <p>humidity</p>
+                </div>
+            </div>
+            <div class="col">
+
+                <i class="fa-solid fa-wind"></i>
+                <div>
+                    <h5 id="windspeed">15 km/h</h5>
+                    <p>wind speed</p>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <script>
+        var temp = document.getElementById('temp');
+        var cityName = document.getElementById('city')
+        var humidity = document.getElementById('humidity')
+        var windspeed = document.getElementById('windspeed')
+        var searchinput = document.getElementById('searchinput');
+        var serchbox = document.getElementById('serchbox')
+        var body_img = document.getElementById('body_img');
+
+        var body_data = document.getElementById('body_data')
+        var deatil = document.getElementById('deatil')
+        var error = document.getElementById('error');
+        var getgeo = document.getElementById('getgeo');
+
+        getgeo.addEventListener('click', getLocation)
+        const API_KEY = '6ec2c4dc2af55b596da69cd5edd99106';
+
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getWeather);
+            }
+        }
+
+        function getWeather(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const location = data.name;
+                    searchinput.value = location
+                })
+
+        }
+
+
+
+
+
+
+        async function checkWeather(city) {
+            let Upi_key = 'f27b269d54e4fa1e72993364a80fa8bd'
+            let repsponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${Upi_key}&units=metric`);
+            let data = await repsponse.json();
+
+
+
+            temp.innerHTML = Math.floor(data.main.temp) + '°C';
+            cityName.innerHTML = data.name;
+            humidity.innerHTML = data.main.humidity + "%";
+            windspeed.innerHTML = data.wind.speed + 'km/h';
+            console.log(data)
+
+
+
+
+
+            if (data.weather[0].main == "Clouds") {
+                body_img.src = 'https://tmpfiles.nohat.cc/visualhunter-e0a90632d4.png'
+            }
+            else if (data.weather[0].main == 'Clear') {
+                body_img.src = 'https://static.vecteezy.com/system/resources/previews/000/447/329/large_2x/vector-a-clear-blue-sky.jpg'
+            }
+            else if (data.weather[0].main == 'Rain') {
+                body_img.src = 'https://tmpfiles.nohat.cc/full-m2i8K9K9A0m2K9K9.png'
+            }
+            else if (data.weather[0].main == 'Drizzle') {
+                body_img.src = 'https://tmpfiles.nohat.cc/full-m2i8K9K9A0m2K9K9.png'
+            }
+            else if (data.weather[0].main == 'Mist') {
+                body_img.src = 'https://tmpfiles.nohat.cc/6955826_preview.png'
+            }
+            else if (data.weather[0].main == 'Haze') {
+                body_img.src = 'https://tmpfiles.nohat.cc/6955826_preview.png'
+            }
+            body_data.style.display = 'flex';
+            deatil.style.display = 'flex';
+
+
+        }
+
+
+        serchbox.addEventListener('click', () => {
+            let cityIn = searchinput.value;
+            checkWeather(cityIn);
+
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let sentence = prompt("Enter a sentence");
+
+
+        function reverseChecker(){
+            // remove symbols and spaces
+            let repalcetext=sentence.replace(/[^a-z0-9]/gi, ''); 
+            console.log(repalcetext)
+            
+            // convert to lowercase
+            let Maintext=repalcetext.toLowerCase();
+            console.log(Maintext)
+            
+            // convert into array
+            let splittext=Maintext.split('');
+            console.log(splittext)
+
+            // reverse text
+            let reversetext=splittext.reverse();
+            console.log(reversetext)
+
+            // join text and rmove array
+            let Secondtext=reversetext.join('');
+            console.log(Secondtext)
+
+            if( Maintext === Secondtext){
+                return true;
+            }
+            else{
+                return false;
+            }
+        };
+        console.log(reverseChecker())
+       
+        // function isPalindrome() {
+           
+        //     const cleanedSent = sentence.replace(/[^a-z0-9]/gi, '').toLowerCase();
+        //     console.log(cleanedSent)
+
+
+        //     const splitSent = cleanedSent.split('');
+        //     console.log(splitSent)
+        //     const reverseSent=splitSent.reverse();
+        //     console.log(reverseSent);
+        //     const joinSent=reverseSent.join('')
+        //     console.log(joinSent)
+            
+        //     if (cleanedSent === joinSent) {
+        //         return true;
+        //     }
+        //     else {
+        //         return false;
+        //     }
+        // };
+
+        // Check if the cleaned string is the same as the reversed string
+        //     return cleanedSent === reversedSent;
+        // }
+        // console.log(isPalindrome())
+        // console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+        // console.log(isPalindrome("race a car")); // false
+        // console.log(isPalindrome("No 'x' in Nixon")); // true
+    </script>
+</body>
+
+</html>

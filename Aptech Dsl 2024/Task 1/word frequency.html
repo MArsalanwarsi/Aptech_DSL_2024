@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function wordrepeatcheack(paragraph) {
+            // Remove punctuation and convert to lowercase
+            const cleanedParagraph = paragraph
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()""]/gi, "")
+                .toLowerCase();
+            
+            // Split the cleaned paragraph into words
+            const words = cleanedParagraph.split(" ");
+           
+
+            // Create an empty object to store word frequencies
+            const wordFrequencyObj = {};
+            
+
+            // Calculate the frequency of each word
+            for (const word of words) {
+                if (wordFrequencyObj.hasOwnProperty(word)) {
+                    wordFrequencyObj[word]++;
+                    
+                } else {
+                    wordFrequencyObj[word] = 1;
+                    
+                }
+            }
+
+            // Sort the word frequency object alphabetically by word
+            const sortedWordFrequencyArr = Object.entries(wordFrequencyObj).sort();
+
+            // Print the sorted word frequencies
+            for (const [word, frequency] of sortedWordFrequencyArr) {
+                console.log(word + ":" + frequency);
+            }
+        }
+
+        // Example usage
+        const paragraph = prompt("enter paragrapgh");
+        wordFrequency(paragraph);
+    </script>
+</body>
+
+</html>

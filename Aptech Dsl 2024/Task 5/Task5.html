@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="number" id="sent1"><br><br>
+    <input type="number" id="sent2"><br><br>
+    </div>
+    <select id="calculate">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select><br><br>
+    <button onclick="digital_calculator()">Calculate</button><br><br>
+    <input type="number" id="result">
+
+    <script>
+        function digital_calculator() {
+
+            let input1 = parseInt(document.getElementById("sent1").value);
+            let input2 = parseInt(document.getElementById("sent2").value);
+            let calculate = document.getElementById("calculate").value
+
+            if (calculate === "+") {
+                document.getElementById("result").value = input1 + input2;
+            }
+            else if (calculate === "-") {
+                document.getElementById("result").value = input1 - input2;
+            }
+            else if (calculate === "*") {
+                document.getElementById("result").value = input1 * input2;
+            }
+            else if (calculate === "/") {
+                document.getElementById("result").value = input1 / input2;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

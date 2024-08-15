@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <br>
+    <input type="number" id="circleCount" value="5">
+    <br>
+    <div id="colorInputContainer"></div>
+    <br>
+    <button onclick="draw()">Draw Circles</button>
+    
+    <script>
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const circleCount = document.getElementById("circleCount");
+        const colorInputContainer = document.getElementById("colorInputContainer");
+
+        const circles = [];
+
+        circleCount.addEventListener("input", () => {
+            circles.splice(0);
+            colorInputContainer.innerHTML = "";
+            for (let i = 0; i < circleCount.value; i++) {
+                const colorInput = document.createElement("input");
+                colorInput.type = "color";
+                colorInput.value = "#000000";
+                colorInput.addEventListener("input", () => {
+                    circles[i].color = colorInput.value;
+                    draw();
+                });
+                colorInputContainer.appendChild(colorInput);
+            }
+            draw();
+        });
+
+        function draw() {
+            const radius = canvas.width / (Math.sqrt(2 * circles.length) + 1);
+            let x = radius;
+            let y = radius;
+            for (let i = 0; i < circles.length; i++) {
+                const circle = circles[i];
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+                ctx.fillStyle = circle.color || "#000000";
+                ctx.fill();
+                x += radius * 2;
+                if (x + radius > canvas.width) {
+                    x = radius;
+                    y += radius * 2;
+                }
+            }
+        }
+
+        draw();
+    const radius = canvas.width / (Math.sqrt(2 * circles.length) + 1);
+        circles.push({
+            x: circles.length * radius + radius,
+            y: circles.length * radius + radius,
+            color: "#ff0000"
+        });
+
+        circleCount.value = circles.length;
+        draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container-fluid d-flex justify-content-center align-items-center bg-dark-subtle min-vh-100">
+        <div class="text-center mt-5 border-2 rounded p-5 bg-light">
+            <h1 class="text-center mb-5">Secure Login</h1>
+            <label for="sent1" class="form-label">Username</label>
+            <input type="text" class="form-control my-3 text-center" id="sent1" />
+            <label for="sent2" class="form-label">Password (Minimum 6 characters)</label>
+            <input type="password" class="form-control my-3 text-center" id="sent2" />
+
+            <button onclick="login()" class="btn btn-outline-dark mt-3">Login</button>
+            <div id="result" class="my-3">
+
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+
+
+        let maxlogins = 3; // Maximum logins
+        let falselogins = 0; //  failed attempts
+        let Timer = null; // timer checking attempts
+        let result = document.getElementById("result");// box showing status
+
+
+
+        // login Function 
+        function login() {
+
+            // when all attempts are made
+            if (Timer !== null) {
+                result.innerHTML = '<div class="alert alert-danger">Login blocked. Please try again later.</div>'
+                return;
+            }
+            // validate users
+            let getUsername = "Aptech";
+            let getPassword = "617074656368313233"; // Hashed password "aptech123"
+
+            // get input of username and password
+            let username = document.getElementById("sent1").value;
+            let password = document.getElementById("sent2").value;
+
+            // validate username and password
+            if (username == "" && password == "") {
+                return result.innerHTML = '<div class="alert alert-danger">Enter Username and Password.</div>'
+            } else if (username == "") {
+                return result.innerHTML = '<div class="alert alert-danger">Enter Username.</div>'
+            } else if (password == "") {
+                return result.innerHTML = '<div class="alert alert-danger">Enter Password.</div>'
+            }
+
+            if (username && password) {
+                if (username === getUsername && hashPassword(password) === getPassword) {
+                    result.innerHTML = '<div class="alert alert-success">Login Successful.</div>'
+                    falselogins = 0; // Reset failed Logins
+                } else {
+                    falselogins++;
+                    if (falselogins >= maxlogins) {
+                        result.innerHTML = '<div class="alert alert-danger">Maximum attempts reached. Please try again later.</div>'
+                        Timer = setTimeout(reset, 600000); // Start function reset after 10 minutes of inactivity
+                    } else {
+                        result.innerHTML = `<div class="alert alert-danger">Incorrect credentials. Please try again. You have ${maxlogins - falselogins} attempts left.</div>`
+
+                    }
+                }
+            }
+
+            // Function to hash the password
+            function hashPassword(password) {
+                // method to hash password
+                return password.split('').map(c => c.charCodeAt(0).toString(16)).join('');
+            }
+        }
+
+
+
+        // Function to reset all required
+        function reset() {
+            falselogins = 0;
+            Timer = null;
+            result.innerHTML = "";
+        }
+
+
+    </script>
+</body>
+
+</html>

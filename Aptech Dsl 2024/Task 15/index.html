@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="container min-vh-100">
+        <h1 class="text-center py-3">Canvas Circle Creator With Custom Colors</h1>
+        <div class="d-flex justify-content-center align-items-center my-3">
+
+            <canvas id="maincanvs" width="400" height="400"></canvas>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-column my-3">
+            <label for="noofcirle" class="form-label">Number of Circles:</label>
+            <input type="number" class="form-control text-center " style="max-width: 200px" id="noofcirle"
+                placeholder="Minimum 2">
+        </div>
+        <div class="d-flex justify-content-center align-items-center my-3">
+            <div id="inptcolorfcircle"></div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center my-3">
+            <button class="btn btn-primary" onclick=" showcircle()">Draw Circles</button>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        const canvas = document.getElementById("maincanvs");
+        const ctx = canvas.getContext("2d");
+        const noofcircle = document.getElementById("noofcirle");
+        const inputcolorsofcircle = document.getElementById("inptcolorfcircle");
+        noofcircle.addEventListener("input", function () {
+            while (inputcolorsofcircle.firstChild) {
+                inputcolorsofcircle.removeChild(inputcolorsofcircle.firstChild);
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < parseInt(noofcircle.value); i++) {
+                const colorInput = document.createElement("input");
+                colorInput.type = "color";
+                colorInput.id = "colors"
+                colorInput.value = "#000000";
+                colorInput.className = "form-control-color"
+                inputcolorsofcircle.appendChild(colorInput);
+            }
+        });
+        function showcircle() {
+            if (noofcircle.value == "") {
+                alert("Enter Number of Circles");
+                return
+            }
+            if (parseInt(noofcircle.value) < 2) {
+                alert("Minimum 2 Circles");
+                return
+            }
+            const arraynoofcirclescolor = Array.from(inputcolorsofcircle.children);
+            let allcolorsvalue = arraynoofcirclescolor.map(input => input.value);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let xStart = 50;
+            let yStart = 50;
+            let xEnd = canvas.width - 50;
+            let yEnd = canvas.height - 50;
+            let distance = Math.sqrt(Math.pow(xEnd - xStart, 2) + Math.pow(yEnd - yStart, 2)) / (parseInt(noofcircle.value) - 1);
+            for (let i = 0; i < parseInt(noofcircle.value); i++) {
+                let x = xStart + (xEnd - xStart) * i / (parseInt(noofcircle.value) - 1);
+                let y = yStart + (yEnd - yStart) * i / (parseInt(noofcircle.value) - 1);
+                let currentcirclecolor = allcolorsvalue[i % allcolorsvalue.length];
+                ctx.beginPath();
+                ctx.arc(x, y, 10, 0, 2 * Math.PI);
+                ctx.fillStyle = currentcirclecolor;
+                ctx.fill();
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

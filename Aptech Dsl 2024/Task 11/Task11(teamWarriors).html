@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: white;
+        }
+
+        .container {
+            background-color: white;
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rainbow1,
+        .rainbow2,
+        .rainbow3,
+        .rainbow4,
+        .rainbow5,
+        .rainbow6,
+        .rainbow7,
+        .rainbow8 {
+            position: relative;
+            border-radius: 275px 275px 0 0;
+        }
+
+        .rainbow2,
+        .rainbow3,
+        .rainbow4,
+        .rainbow5,
+        .rainbow6,
+        .rainbow7,
+        .rainbow8 {
+            top: 20px;
+            left: 20px;
+        }
+
+        .rainbow1 {
+            height: 200px;
+            width: 400px;
+        }
+
+        .rainbow2 {
+            height: 180px;
+            width: 360px;
+        }
+
+        .rainbow3 {
+            height: 160px;
+            width: 320px;
+        }
+
+        .rainbow4 {
+            height: 140px;
+            width: 280px;
+        }
+
+        .rainbow5 {
+            height: 120px;
+            width: 240px;
+        }
+
+        .rainbow6 {
+            height: 100px;
+            width: 200px;
+        }
+
+        .rainbow7 {
+
+            height: 80px;
+            width: 160px;
+        }
+
+        .rainbow8 {
+
+            height: 60px;
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Rainbow</h1>
+        <div class="rainbow1">
+            <div class="rainbow2">
+                <div class="rainbow3">
+                    <div class="rainbow4">
+                        <div class="rainbow5">
+                            <div class="rainbow6">
+                                <div class="rainbow7">
+                                    <div class="rainbow8">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="colors ">
+            <input type="color" class=" form-control-color" name="" id="rain1">
+            <input type="color" class=" form-control-color" name="" id="rain2">
+            <input type="color" class=" form-control-color" name="" id="rain3">
+            <input type="color" class=" form-control-color" name="" id="rain4">
+            <input type="color" class=" form-control-color" name="" id="rain5">
+            <input type="color" class=" form-control-color" name="" id="rain6">
+            <input type="color" class=" form-control-color" name="" id="rain7">
+        </div>
+        <button onclick="createRain()" class="btn btn-primary mt-4">Create</button>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        let rain1 = document.getElementById("rain1");
+        let rain2 = document.getElementById("rain2");
+        let rain3 = document.getElementById("rain3");
+        let rain4 = document.getElementById("rain4");
+        let rain5 = document.getElementById("rain5");
+        let rain6 = document.getElementById("rain6");
+        let rain7 = document.getElementById("rain7");
+        function createRain() {
+            if (rain1.value == "#000000" || rain2.value == "#000000" || rain3.value == "#000000" || rain4.value == "" || rain5.value == "#000000" || rain6.value == "#000000" || rain7.value == "#000000") {
+                alert("Pick all colors");
+                return
+            }
+            if (rain1.value == rain2.value || rain1.value == rain3.value || rain1.value == rain4.value || rain1.value == rain5.value || rain1.value == rain6.value || rain1.value == rain7.value) {
+                alert("Pick different colors");
+                return
+            }
+            if (rain2.value == rain3.value || rain2.value == rain4.value || rain2.value == rain5.value || rain2.value == rain6.value || rain2.value == rain7.value) {
+                alert("Pick different colors");
+                return
+            }
+            if (rain3.value == rain4.value || rain3.value == rain5.value || rain3.value == rain6.value || rain3.value == rain7.value) {
+                alert("Pick different colors");
+                return
+            }
+            if (rain4.value == rain5.value || rain4.value == rain6.value || rain4.value == rain7.value) {
+                alert("Pick different colors");
+                return
+            }
+            if (rain5.value == rain6.value || rain5.value == rain7.value) {
+                alert("Pick different colors");
+                return
+            }
+
+
+            document.querySelector(".rainbow1").style.backgroundColor = rain1.value;
+            document.querySelector(".rainbow2").style.backgroundColor = rain2.value;
+            document.querySelector(".rainbow3").style.backgroundColor = rain3.value;
+            document.querySelector(".rainbow4").style.backgroundColor = rain4.value;
+            document.querySelector(".rainbow5").style.backgroundColor = rain5.value;
+            document.querySelector(".rainbow6").style.backgroundColor = rain6.value;
+            document.querySelector(".rainbow7").style.backgroundColor = rain7.value;
+        }
+
+    </script>
+</body>
+
+</html>

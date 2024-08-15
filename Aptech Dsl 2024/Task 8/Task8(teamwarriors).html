@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+</head>
+
+<body>
+    <!-- <div class="container-fluid"> -->
+    <!-- <h1>Welcome To The Bank</h1> -->
+    <div class="container-fluid">
+        <h1 class="text-center m-5">Welcome To The Bank</h1>
+        <div class="form-group m-5 p-4" style="border: 1px solid black;">
+            <h2>Account Information</h2>
+            <div class="my-3">
+                <label for="Aname" class="form-label">Account Name:</label>
+                <input type="text" class="form-control" id="Aname" />
+            </div>
+            <div class="my-3">
+                <label for="ABalance" class="form-label">Initial Balance:</label>
+                <input type="number" class="form-control" id="ABalance">
+            </div>
+
+            <button id="createAccount" class="btn btn-success my-3" onclick="createAccount()">Create Account</button>
+
+        </div>
+        <div class="form-group m-5 p-4" style="border: 1px solid black;">
+            <h2>Transaction</h2>
+            <div class="my-3">
+                <label for="amount" class="form-label">Amount:</label>
+                <input type="text" class="form-control" id="amount">
+            </div>
+
+            <button id="deposit" class="btn btn-success my-3" onclick="deposit()">Deposit</button>
+            <button id="withdraw" class="btn btn-primary my-3" onclick="withdraw()">Withdraw</button>
+
+        </div>
+        <div class="form-group m-5 p-4" style="border: 1px solid black;">
+            <h2>Current Balance</h2>
+            <div class="alert alert-info my-3">Current Balance:- <span id="cbalance"></span></div>
+
+        </div>
+    </div>
+    <!-- </div> -->
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+
+        // getting all required elements  by their ids
+        const cbalance = document.getElementById('cbalance');
+        const Aname = document.getElementById('Aname');
+        const ABalance = document.getElementById('ABalance');
+        const amount = document.getElementById('amount');
+
+
+        //create a function to create account and store it's data in local storage
+        function createAccount() {
+            if (Aname.value == "" || ABalance.value == "") {//if any of the fields are empty show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Please Fill All The Details",
+                    icon: "error"
+                });
+                return;
+            } else {//else store the data in local storage and display a success message
+                localStorage.setItem("Account Name", Aname.value);
+                localStorage.setItem("Account Balance", ABalance.value);
+
+                Swal.fire({
+                    title: "Thank You",
+                    text: "Your Account Has Been Created!",
+                    icon: "success"
+                });
+            }
+        }
+
+
+        //function to deposit money into the account
+
+        function deposit() {
+            if (amount.value == "") {//if any of the fields are empty show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Please Fill All The Details",
+                    icon: "error"
+                });
+                return;
+            } else if (localStorage.getItem("Account Balance") == null) {//if account doesn't exist show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Please Create Your Account First",
+                    icon: "error"
+                });
+                return;
+
+            }
+            else {//else store the data in local storage and display a success message
+                const bal = localStorage.getItem("Account Balance");
+                const balance = parseInt(bal) + parseInt(amount.value);
+                localStorage.setItem("Account Balance", balance);
+                Swal.fire({
+                    title: "Thank You",
+                    text: "Amount Has been Deposited!",
+                    icon: "success"
+                });
+            }
+        }
+
+
+        //function to withdraw money from the account
+        function withdraw() {
+            if (amount.value == "") {//if any of the fields are empty show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Please Fill All The Details",
+                    icon: "error"
+                });
+                return;
+            } else if (localStorage.getItem("Account Balance") == null) {//if account doesn't exist show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Please Create Your Account First",
+                    icon: "error"
+                });
+                return;
+            } else if (amount.value > parseFloat(localStorage.getItem("Account Balance"))) {//if amount to be withdrawn is greater than balance show an error
+                Swal.fire({
+                    title: "Error",
+                    text: "Insufficient Balance",
+                    icon: "error"
+                });
+                return;
+            }
+            else {//else store the data in local storage and display a success message
+                const bal = localStorage.getItem("Account Balance");
+                const balance = parseInt(bal) - parseInt(amount.value);
+                localStorage.setItem("Account Balance", balance);
+                Swal.fire({
+                    title: "Thank You",
+                    text: "Amount Has been Withdrawn!",
+                    icon: "success"
+                });
+
+            }
+
+        }
+
+        //function to update balance
+        function updatebalance() {
+            const bal = localStorage.getItem("Account Balance");
+            if (Aname.value == "" || ABalance.value == "") {///if account fields are empty show 0 in balance
+                cbalance.innerHTML = 0;
+            } else {//else show the updated balance
+                cbalance.innerHTML = bal;
+            }
+        }
+        setInterval(updatebalance, 1000)//update balance every second
+
+    </script>
+</body>
+
+</html>
